@@ -9,7 +9,12 @@ define tarsnap::install($ensure=present) {
   if $ensure == 'present' {
 
     # Deps for building tarsnap:
-    package { ["build-essential", "debhelper", "e2fslibs-dev", "libbz2-dev"]:
+    package { ["build-essential",
+               "debhelper",
+               "e2fslibs-dev",
+               "libbz2-dev",
+               "zlib1g-dev",
+               "libssl-dev"]:
       ensure => $ensure,
       before => Exec["install-tarsnap-$version"],
     }
