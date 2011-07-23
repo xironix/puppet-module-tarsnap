@@ -22,6 +22,13 @@ providing the module directory you cloned this repo to:
     puppet apply --modulepath=modules test_tarsnap.pp
 
 
+TODO
+----
+
+* Definition of backups.
+* Ability to prune older backups.
+
+
 Usage
 -----
 
