@@ -1,5 +1,5 @@
 define tarsnap::install($ensure=present) {
-  $name = $version
+  $version = $name
 
   $tarsnap_root = "/usr/local/src/tarsnap-${version}"
   $tarsnap_deb = "${tarsnap_root}/tarsnap_${version}_${architecture}.deb"
