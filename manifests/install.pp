@@ -19,7 +19,7 @@ define tarsnap::install($ensure=present) {
     }
 
     exec { "fetch-tarsnap-$version":
-      command => "wget -q -O - $url | tar -xz --strip-components 1",
+      command => "wget -q -O - $url | tar -xz",
       cwd => $tarsnap_root,
       creates => $tarsnap_src,
       require => File[$tarsnap_root],
