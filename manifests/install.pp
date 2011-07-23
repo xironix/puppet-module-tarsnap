@@ -27,7 +27,7 @@ define tarsnap::install($ensure=present) {
 
     exec { "install-tarsnap-$version":
       command => "ln -s pkg/debian . && dpkg-buildpackage && dpkg -i $tarsnap_deb",
-      cwd => $tarsnap_root,
+      cwd => $tarsnap_src,
       unless => "test `tarsnap --version | cut -d ' ' -f 2` = '${version}'",
       require => Exec["fetch-tarsnap-$version"],
     }
