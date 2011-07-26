@@ -61,11 +61,10 @@ The commands, directories, and files arguments are  Puppet hashes:
   }
 
 
-To prune old backups include the `tarsnap::prune` module with this special
-syntax where the hour and minute arguments follows the behavior of
-the equivalent arguments to the `cron` resource:
+To prune old backups use the `tarsnap::prune` resource with the same
+name argument as you used for the backup you want to prune:
 
-    class { "tarsnap::prune":
+    tarsnap::prune { "web-resources":
       hour => 1,
       minute => 45,
     }

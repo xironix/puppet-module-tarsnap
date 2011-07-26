@@ -14,7 +14,8 @@ def backup_to_tarsnap(directories=None, commands=None, files=None):
     
     # Create a directory in /tmp to gather all of the backups
     datestamp = datetime.datetime.utcnow().strftime('%Y-%m-%d_%H-%M')
-    backup_dir = os.path.join('/tmp/', datestamp)
+    backup_name = "<%= name %>_" + datestamp
+    backup_dir = os.path.join('/tmp/', backup_name)
     os.mkdir(backup_dir)
     
     # Backup any directories
@@ -41,7 +42,7 @@ def backup_to_tarsnap(directories=None, commands=None, files=None):
     
     # /tmp/tmp-backup-BLAH is now ready to be uploaded
     os.chdir('/tmp')
-    run_command('tarsnap -c -f %s %s' % (datestamp, datestamp))
+    run_command('tarsnap -c -f %s %s' % (backup_name, backup_name))
     
     # Clean-up: delete the local tmp backup directory
     shutil.rmtree(backup_dir)

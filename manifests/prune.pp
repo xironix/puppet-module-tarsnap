@@ -1,8 +1,8 @@
-class tarsnap::prune($ensure=present,
-                     $hour=1,
-                     $minute=0)  {
+define tarsnap::prune($ensure=present,
+                      $hour=1,
+                      $minute=0)  {
 
-  $prune_script = "/usr/local/bin/tarsnap-prune"
+  $prune_script = "/usr/local/bin/tarsnap-prune-${name}"
 
   file { $prune_script:
     ensure => $ensure,
@@ -10,9 +10,9 @@ class tarsnap::prune($ensure=present,
     mode => 744,
   }
 
-  cron { "tarsnap-prune":
+  cron { "tarsnap-prune-${name}":
     ensure => $ensure,
-    command => "tarsnap --list-archives -v | sort -k2r | $prune_script | sed -e 's/^\(.\+\)/-f \1/' | xargs -r tarsnap -d",
+    command => "tarsnap --list-archives -v | grep -E '^${name}_' | sort -k2r | $prune_script | sed -e 's/^\(.\+\)/-f \1/' | xargs -r tarsnap -d",
     user => "root",
     hour => $hour,
     minute => $minutes_after_backup,
