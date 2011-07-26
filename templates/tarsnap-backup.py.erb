@@ -1,0 +1,75 @@
+#!/usr/bin/env python
+from __future__ import with_statement
+import os, shutil, subprocess, datetime
+
+# Based on backup_to_s3.py by Simon Willison:
+#     http://simonwillison.net/static/2008/backup_to_s3.py.txt
+
+def backup_to_tarsnap(directories=None, commands=None, files=None):
+    # Most of this command is concerned with copying files in to a single 
+    # directory ready to be uploaded to tarsnap
+
+    if not directories and not commands and not files:
+      return
+    
+    # Create a directory in /tmp to gather all of the backups
+    datestamp = datetime.datetime.utcnow().strftime('%Y-%m-%d_%H-%M')
+    backup_dir = os.path.join('/tmp/', datestamp)
+    os.mkdir(backup_dir)
+    
+    # Backup any directories
+    if directories:
+        os.mkdir(os.path.join(backup_dir, 'directories'))
+        for dirname, src in directories.items():
+            dest = os.path.join(backup_dir, 'directories', dirname)
+            shutil.copytree(src, dest, symlinks=True)
+    
+    # Backup any files
+    if files:
+        os.mkdir(os.path.join(backup_dir, 'files'))
+        for filename, src in files.items():
+            dest = os.path.join(backup_dir, 'files', filename)
+            shutil.copy2(src, dest)
+    
+    # Run any commands and backup the result
+    if commands:
+        os.mkdir(os.path.join(backup_dir, 'commands'))
+        for filename, command in commands.items():
+            dest = os.path.join(backup_dir, 'commands', filename)
+            with open(dest, 'w') as fp:
+                fp.write(get_output(command))
+    
+    # /tmp/tmp-backup-BLAH is now ready to be uploaded
+    os.chdir('/tmp')
+    run_command('tarsnap -c -f %s %s' % (datestamp, datestamp))
+    
+    # Clean-up: delete the local tmp backup directory
+    shutil.rmtree(backup_dir)
+
+# Grr @ Python's dozens of obtuse process handling functions
+def get_output(command):
+    # Using split() here is a bad idea, will fail on "double quotes"
+    return subprocess.Popen(
+        command.split(), stdout=subprocess.PIPE
+    ).communicate()[0]
+
+run_command = get_output
+
+if __name__ == '__main__':
+    backup_to_tarsnap(
+        directories = {
+<% directories.each do |key, value| -%>
+        '<%= key %>': '<%= value %>',
+<% end -%>
+        },
+        commands = {
+<% commands.each do |key, value| -%>
+        '<%= key %>': '<%= value %>',
+<% end -%>
+        },
+        files = {
+<% files.each do |key, value| -%>
+        '<%= key %>': '<%= value %>',
+<% end -%>
+        }
+    )
