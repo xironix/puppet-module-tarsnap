@@ -49,7 +49,7 @@ The commands, directories, and files arguments are  Puppet hashes:
     commands => {
       'blog.sql' => 'sudo -u postgres pg_dump blog',
       'cms.json' => 'sudo -u www-mgr /var/www/cms/manage.py backup',
-    ],
+    },
     directories => {
       'cms-photos' => '/var/www/cms/static',
     },
