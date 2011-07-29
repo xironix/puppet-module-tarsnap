@@ -12,7 +12,7 @@ define tarsnap::prune($ensure=present,
 
   cron { "tarsnap-prune-${name}":
     ensure => $ensure,
-    command => "tarsnap --list-archives -v | grep -E '^${name}_' | sort -k2r | $prune_script | sed -e 's/^\(.\+\)/-f \1/' | xargs -r tarsnap -d",
+    command => "tarsnap --list-archives -v | grep -E '^${name}_' | sort -k2r | $prune_script | sed -e 's/^\\(.\\+\\)/-f \\1/' | xargs -r tarsnap -d",
     user => "root",
     hour => $hour,
     minute => $minutes_after_backup,
