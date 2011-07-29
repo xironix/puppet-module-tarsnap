@@ -15,7 +15,7 @@ TODO
 Installation
 ------------
 
-Clone this repo to a postgresql directory under your Puppet
+Clone this repo to a tarsnap directory under your Puppet
 modules directory:
 
     git clone git://github.com/uggedal/puppet-module-tarsnap.git tarsnap
