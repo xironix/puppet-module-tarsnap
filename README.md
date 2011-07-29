@@ -50,21 +50,20 @@ by the `tarsnap::backup` resource. Syntax of the hour and minute arguments
 follows the behavior of the equivalent arguments to the `cron` resource.
 The commands, directories, and files arguments are  Puppet hashes:
 
-  tarsnap::backup { "web-resources":
-    commands => {
-      'blog.sql' => 'sudo -u postgres pg_dump blog',
-      'cms.json' => 'sudo -u www-mgr /var/www/cms/manage.py backup',
-    },
-    directories => {
-      'cms-photos' => '/var/www/cms/static',
-    },
-    files => {
-      'cms-settings' => '/var/www/cms/settings.py',
-    },
-    hour => '*',
-    minute => 15,
-  }
-
+    tarsnap::backup { "web-resources":
+      commands => {
+        'blog.sql' => 'sudo -u postgres pg_dump blog',
+        'cms.json' => 'sudo -u www-mgr /var/www/cms/manage.py backup',
+      },
+      directories => {
+        'cms-photos' => '/var/www/cms/static',
+      },
+      files => {
+        'cms-settings' => '/var/www/cms/settings.py',
+      },
+      hour => '*',
+      minute => 15,
+    }
 
 To prune old backups use the `tarsnap::prune` resource with the same
 name argument as you used for the backup you want to prune:
