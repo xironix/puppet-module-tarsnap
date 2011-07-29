@@ -18,6 +18,6 @@ define tarsnap::backup($ensure=present,
     command => $backup_script,
     hour => $hour,
     minute => $minute,
-    require => [File["/usr/bin/tarsnap-backup"], File[$tarsnap::key_file]],
+    require => [File[$backup_script], File[$tarsnap::key_file]],
   }
 }

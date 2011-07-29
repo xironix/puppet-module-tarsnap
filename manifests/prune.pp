@@ -16,7 +16,6 @@ define tarsnap::prune($ensure=present,
     user => "root",
     hour => $hour,
     minute => $minutes_after_backup,
-    require => [File["/root/tarsnap.key"],
-                File["/usr/bin/tarsnap-prune"]],
+    require => [File[$prune_script], File[$tarsnap::key_file]],
   }
 }
