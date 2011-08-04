@@ -15,7 +15,7 @@ define tarsnap::prune($ensure=present,
     command => "tarsnap --list-archives -v | grep -E '^${name}_' | sort -k2r | $prune_script | sed -e 's/^\\(.\\+\\)/-f \\1/' | xargs -r tarsnap -d",
     user => "root",
     hour => $hour,
-    minute => $minutes_after_backup,
+    minute => $minute,
     require => [File[$prune_script], File[$tarsnap::key_file]],
   }
 }
