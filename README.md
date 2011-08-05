@@ -45,6 +45,13 @@ should ideally be placed in `manifests/site.pp`:
       path => "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
     }
 
+You'll also need to make a virtual package resource for the build
+dependencies:
+
+    @package { $tarsnap::install::dependencies:
+      ensure => present,
+    }
+
 Taking backups of files, directories, and output from commands are handled
 by the `tarsnap::backup` resource. Syntax of the hour and minute arguments
 follows the behavior of the equivalent arguments to the `cron` resource.
