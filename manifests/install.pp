@@ -15,8 +15,6 @@ define tarsnap::install($ensure=present) {
 
   if $ensure == 'present' {
 
-    realize(Package[$dependencies])
-
     file { $tarsnap_root:
       ensure => "directory",
     }
