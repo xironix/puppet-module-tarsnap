@@ -1,4 +1,4 @@
-class tarnsap::dependencies {
+class tarsnap::dependencies {
   $packages = ["build-essential",
                 "debhelper",
                 "e2fslibs-dev",
