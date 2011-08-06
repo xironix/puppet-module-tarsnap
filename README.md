@@ -47,7 +47,8 @@ should ideally be placed in `manifests/site.pp`:
 
 You'll also need to install some build dependencies:
 
-    package { $tarsnap::install::dependencies:
+    include tarsnap::dependencies
+    package { $tarsnap::dependencies::packages:
       ensure => present,
     }
 
