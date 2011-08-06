@@ -1,4 +1,6 @@
 define tarsnap::install($ensure=present) {
+  include tarsnap::dependencies
+
   $version = $name
 
   $tarsnap_root = "/usr/local/src/tarsnap-${version}"
