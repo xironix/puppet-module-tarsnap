@@ -9,6 +9,8 @@ Puppet 2.6. Patches for other operating systems welcome.
 TODO
 ----
 
+* Do not copy files to /tmp before taking a backup, is to IO
+  intensive.
 * Add tarsnap user and use it to run backups from.
 
 
