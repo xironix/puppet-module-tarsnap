@@ -8,7 +8,7 @@ class tarsnap($ensure=present, $key_file) {
   }
 
   apt::key { "437C0580":
-    ensure => present,
+    ensure => $ensure,
   }
 
   package { "tarsnap":
