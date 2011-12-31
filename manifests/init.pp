@@ -1,19 +1,8 @@
 class tarsnap($ensure=present, $key_file) {
-  
-  apt::source { "uggedal":
-    uri => "http://packages.uggedal.com",
-    release => "stable",
-    components => "main",
-    require => Apt::Key["437C0580"],
-  }
-
-  apt::key { "437C0580":
-    ensure => $ensure,
-  }
 
   package { "tarsnap":
     ensure => $ensure,
-    require => Apt::Source["tarsnap"],
+    require => Apt::Source["uggedal"],
   }
 
   file { $key_file:
@@ -23,6 +12,6 @@ class tarsnap($ensure=present, $key_file) {
 
   file { "/etc/tarsnap.conf":
     content => template("tarsnap/tarsnap.conf.erb"),
-    require => Tarsnap::Install[$version],
+    require => Package["tarsnap"],
   }
 }

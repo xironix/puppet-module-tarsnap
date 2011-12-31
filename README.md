@@ -33,8 +33,22 @@ providing the module directory you cloned this repo to:
 Usage
 -----
 
-Install Tarsnap by including the module with this special syntax, defining
-the location of your key file:
+  
+First you'll have to add a new apt repository:
+
+  apt::source { "uggedal":
+    uri => "http://packages.uggedal.com",
+    release => "stable",
+    components => "main",
+    require => Apt::Key["437C0580"],
+  }
+
+  apt::key { "437C0580":
+    ensure => present,
+  }
+
+Then you can install Tarsnap by including the module with this special
+syntax, defining the location of your key file:
 
     class { tarsnap:
       key_file => "/etc/tarsnap.key"
