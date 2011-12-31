@@ -17,9 +17,10 @@ TODO
 Installation
 ------------
 
-Clone this repo to a tarsnap directory under your Puppet
-modules directory:
+Clone this repo and all its dependencies to respective directories under
+your Puppet modules directory:
 
+    git clone git://github.com/uggedal/puppet-module-apt.git apt
     git clone git://github.com/uggedal/puppet-module-tarsnap.git tarsnap
 
 If you don't have a Puppet Master you can create a manifest file
@@ -37,21 +38,6 @@ the location of your key file:
 
     class { tarsnap:
       key_file => "/etc/tarsnap.key"
-    }
-
-Note that you'll need to define a global search path for the `exec`
-resource to make the `tarsnap` class function properly. This
-should ideally be placed in `manifests/site.pp`:
-
-    Exec {
-      path => "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
-    }
-
-You'll also need to install some build dependencies:
-
-    include tarsnap::dependencies
-    package { $tarsnap::dependencies::packages:
-      ensure => present,
     }
 
 Taking backups of files, directories, and output from commands are handled

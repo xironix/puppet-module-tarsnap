@@ -1,7 +1,19 @@
-class tarsnap($ensure=present, $key_file, $version="1.0.29") {
+class tarsnap($ensure=present, $key_file) {
   
-  tarsnap::install { $version:
+  apt::source { "uggedal":
+    uri => "http://packages.uggedal.com",
+    release => "stable",
+    components => "main",
+    require => Apt::Key["437C0580"],
+  }
+
+  apt::key { "437C0580":
+    ensure => present,
+  }
+
+  package { "tarsnap":
     ensure => $ensure,
+    require => Apt::Source["tarsnap"],
   }
 
   file { $key_file:
