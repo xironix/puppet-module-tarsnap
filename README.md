@@ -3,7 +3,7 @@ Puppet Tarsnap Module
 
 Module for configuring Tarsnap.
 
-Tested on Debian GNU/Linux 6.0 Squeeze and Ubuntu 10.4 LTS with
+Tested on Debian GNU/Linux 6.0 Squeeze and Ubuntu 12.04 LTS with
 Puppet 2.6. Patches for other operating systems welcome.
 
 TODO
@@ -20,8 +20,8 @@ Installation
 Clone this repo and all its dependencies to respective directories under
 your Puppet modules directory:
 
-    git clone git://github.com/uggedal/puppet-module-apt.git apt
-    git clone git://github.com/uggedal/puppet-module-tarsnap.git tarsnap
+    git clone git@github.com:xironix/puppet-module-tarsnap.git
+    git clone git@github.com:xironix/puppet-module-tarsnap.git tarsnap
 
 If you don't have a Puppet Master you can create a manifest file
 based on the notes below and run Puppet in stand-alone mode
@@ -32,27 +32,6 @@ providing the module directory you cloned this repo to:
 
 Usage
 -----
-
-  
-First you'll have to add a new apt repository:
-
-  apt::source { "uggedal":
-    uri => "http://packages.uggedal.com",
-    release => "stable",
-    components => "main",
-    require => Apt::Key["437C0580"],
-  }
-
-  apt::key { "437C0580":
-    ensure => present,
-  }
-
-Then you can install Tarsnap by including the module with this special
-syntax, defining the location of your key file:
-
-    class { tarsnap:
-      key_file => "/etc/tarsnap.key"
-    }
 
 Taking backups of files, directories, and output from commands are handled
 by the `tarsnap::backup` resource. Syntax of the hour and minute arguments
