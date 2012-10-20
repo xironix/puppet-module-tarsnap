@@ -5,10 +5,6 @@ class tarsnap($ensure = present) {
 
   package { "tarsnap":
     ensure => $ensure,
-  
-
-  package { "tarsnap":
-    ensure => $ensure,
     require => Apt::Ppa["ppa:ironix/tarsnap"],
   }
 
