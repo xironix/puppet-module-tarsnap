@@ -1,11 +1,16 @@
-class tarsnap($ensure = present) {
+class tarsnap($ensure = present, $key_file) {
   include apt
 
   apt::ppa { "ppa:ironix/tarsnap": }
 
   package { "tarsnap":
-    ensure => $ensure,
+    ensure  => $ensure,
     require => Apt::Ppa["ppa:ironix/tarsnap"],
+  }
+
+  file { $key_file:
+    ensure => present, # Always present, we don't want to delete it.
+    mode   => '0600',
   }
 
   file { "/etc/tarsnap.conf":
